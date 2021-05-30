@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <stack>
 #include <cstdlib>
+#include <chrono>
 
 void TransportationGraph::CreateFromFile(std::string path) {
 	std::ifstream fileReader;
@@ -109,7 +110,7 @@ void TransportationGraph::dijkstra(std::string startStationName, std::string end
 	std::cout << "* Start Station: " << startStation->name << std::endl;
 	std::cout << "* End Station: " << endStation->name << std::endl;
 	// station // wegminuten ||
-
+	auto startTime = std::chrono::steady_clock::now();
 	
 	int minTime = 99999;
 	Station* currStation = startStation;
@@ -141,7 +142,9 @@ void TransportationGraph::dijkstra(std::string startStationName, std::string end
 			}
 		}	
 	}
-
+	auto endTime = std::chrono::steady_clock::now();
+	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+	std::cout << "SearchTime: " << elapsed << std::endl;
 	Print(currStation);
 
 	 /*std::cout << "*****************************************\n";
