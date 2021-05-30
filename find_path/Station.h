@@ -3,27 +3,29 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include "Connection.h"
 
 class Station
 {
 private:
-	std::vector<std::tuple<Station*, int, std::string>> nextStops;
-	std::tuple<Station*, int, std::string> parentConnection;
+	std::vector<Connection*> nextStops;
+	Connection* parentConnection;
 	int timeFromStart;
+
+	std::string name;
 	
 	bool visited;
 
+
 public:
 	
-
-	std::string name;
 
 	Station(std::string name);
 
 	// verbindungsstellen!! 
 	void AddStop(Station* station, int timeCost, std::string line);
 
-	std::vector<std::tuple<Station*, int, std::string>> GetStops() const;
+	std::vector<Connection*> GetStops() const;
 
 	void SetVisited(bool visited);
 
@@ -33,9 +35,11 @@ public:
 
 	void SetTimeFromStart(int timeFromStart);
 
-	std::tuple<Station*, int, std::string> GetParentConnection() const;
+	Connection* GetParentConnection() const;
 
-	void SetParentConnection(std::tuple<Station*, int, std::string>);
+	void SetParentConnection(Connection* parentConnection);
+
+	std::string GetName() const;
 
 };
 

@@ -24,6 +24,6 @@ int main(int argc, char* argv[])
     */
     TransportationGraph* transportGraph = new TransportationGraph();
     transportGraph->CreateFromFile("ADS.txt");
-    transportGraph->dijkstra("Praterstern", "Floridsdorf");
+    transportGraph->FindPath("Praterstern", "Floridsdorf");
 }
 

@@ -24,12 +24,18 @@
     <ClCompile Include="Station.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Connection.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TransportationGraph.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Station.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Connection.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

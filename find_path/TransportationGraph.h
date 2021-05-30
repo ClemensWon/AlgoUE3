@@ -16,7 +16,9 @@ class TransportationGraph
 public:
 	void CreateFromFile(std::string path);
 
-	void dijkstra(std::string startStationName, std::string endStationName);
+	void FindPath(std::string startStationName, std::string endStationName);
+
+	Station* dijkstra(Station* currStation, Station* endStation);
 
 	~TransportationGraph();
 };

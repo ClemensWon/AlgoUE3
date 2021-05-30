@@ -3,7 +3,7 @@
 Station::Station(std::string name) {
 	this->name = name;
 	this->visited = false;
-	this->parentConnection = std::make_tuple(nullptr, 0, "");
+	this->parentConnection = nullptr;
 	this->timeFromStart = 99999;
 }
 
@@ -11,10 +11,10 @@ Station::Station(std::string name) {
 
 void Station::AddStop(Station* station, int timeCost, std::string line) {
 	
-	this->nextStops.push_back(std::tuple<Station*, int, std::string>(station, timeCost, line));
+	this->nextStops.push_back(new Connection(station, line, timeCost));
 }
 
-std::vector<std::tuple<Station*, int, std::string>> Station::GetStops() const {
+std::vector<Connection*> Station::GetStops() const {
 	return this->nextStops;
 }
 
@@ -34,10 +34,14 @@ void Station::SetTimeFromStart(int timeFromStart) {
 	this->timeFromStart = timeFromStart;
 }
 
-std::tuple<Station*, int, std::string> Station::GetParentConnection() const {
+Connection* Station::GetParentConnection() const {
 	return this->parentConnection;
 }
 
-void Station::SetParentConnection(std::tuple<Station*, int, std::string> parentConnection) {
+void Station::SetParentConnection(Connection* parentConnection) {
 	this->parentConnection = parentConnection;
+}
+
+std::string Station::GetName() const {
+	return this->name;
 }
