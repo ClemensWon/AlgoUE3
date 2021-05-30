@@ -11,8 +11,14 @@ class TransportationGraph
 
 	std::vector<Station*> stations;
 
+	void Print(Station* currStation);
+
 public:
 	void CreateFromFile(std::string path);
+
+	void dijkstra(std::string startStationName, std::string endStationName);
+
+	~TransportationGraph();
 };
 
 
