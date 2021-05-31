@@ -22,8 +22,10 @@ int main(int argc, char* argv[])
     transportGraph->dijkstra(argv[2], argv[3]);
     delete transportGraph;
     */
+    srand(time(NULL));
     TransportationGraph* transportGraph = new TransportationGraph();
     transportGraph->CreateFromFile("ADS.txt");
+    //transportGraph->CreateTestGraph(1000, 10000, 10);
     transportGraph->FindPath("Praterstern", "Floridsdorf");
 }
 

@@ -6,7 +6,6 @@
 #include <string_view>
 #include <vector>
 #include <algorithm>
-#include <stack>
 #include <cstdlib>
 #include <chrono>
 
@@ -71,6 +70,29 @@ void TransportationGraph::CreateFromFile(std::string path) {
 	}
 }
 
+void TransportationGraph::CreateTestGraph(int nodeCount, int edgeCount, int costLimit) {
+	int lineCounter = 0;
+	for (int counter = 0; counter < nodeCount; counter++) {
+		Station* newStation = new Station(std::to_string(counter));
+		stations.push_back(newStation);
+		if (counter != 0) {
+			stations.at(counter - 1)->AddStop(stations.at(counter), (rand() % costLimit) + 1, "U" + std::to_string(lineCounter));
+		}
+	}
+	stations.at(nodeCount - 1)->AddStop(stations.at(0), (rand() % costLimit)+1, "U" + std::to_string(lineCounter));
+	lineCounter++;
+	for (int counter = 0; counter < nodeCount; counter++) {
+		int randomIndex1 = rand() % nodeCount;
+		int randomIndex2 = rand() % nodeCount;
+		stations.at(randomIndex1)->AddStop(stations.at(randomIndex2), (rand() % costLimit) + 1, "U"+std::to_string(lineCounter));
+		if (rand() % 10 == 0) {
+			lineCounter++;
+		}
+	}
+}
+
+
+
 
 void TransportationGraph::FindPath(std::string startStationName, std::string endStationName) {
 	Station* startStation = nullptr;
@@ -95,10 +117,13 @@ void TransportationGraph::FindPath(std::string startStationName, std::string end
 	std::cout << "* End Station: " << endStation->GetName() << std::endl;
 	// station // wegminuten ||
 	auto startTime = std::chrono::steady_clock::now();
-	dijkstra(startStation, endStation);
-
-	Print(endStation);
+	Station* result = dijkstra(startStation, endStation);
+	if (result == NULL) {
+		std::cout << "could not find a way between start and end station";
+		return;
+	}
 	auto endTime = std::chrono::steady_clock::now();
+	Print(endStation);
 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
 	std::cout << std::endl  << "SearchTime: " << elapsed << std::endl;
 }
@@ -132,6 +157,10 @@ Station* TransportationGraph::dijkstra(Station* currStation, Station* endStation
 		currStation->SetVisited(true);
 		for (int index = 0; index < stations.size(); index++) {
 			if (!stations.at(index)->GetVisited()) {
+			//rekursiver Aufruf von Dijkstra mit neuem Knoten. 
+				if (stations.at(index)->GetTimeFromStart() == 99999) {
+					return NULL;
+				}
 				return dijkstra(stations.at(index), endStation);				
 			}
 		}	
