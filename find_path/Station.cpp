@@ -7,10 +7,12 @@ Station::Station(std::string name) {
 	this->timeFromStart = 99999;
 }
 
-
+Station::~Station() {
+	delete parentConnection;
+	nextStops.clear();
+}
 
 void Station::AddStop(Station* station, int timeCost, std::string line) {
-	
 	this->nextStops.push_back(new Connection(station, line, timeCost));
 }
 

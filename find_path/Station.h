@@ -22,6 +22,8 @@ public:
 
 	Station(std::string name);
 
+	~Station();
+
 	// verbindungsstellen!! 
 	void AddStop(Station* station, int timeCost, std::string line);
 
